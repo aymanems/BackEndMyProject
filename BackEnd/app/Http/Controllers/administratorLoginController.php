@@ -3,32 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class administratorLoginController extends Controller
 {
-    //-----------------------------Vérifier les informations du connexion d'administrateur-----------------------------
     public function tcheckLoginAdministrator(Request $request){
         try {
-            // Validation des champs d'email et de mot de pass
-            $validatedData = $request->validate([            
-                'email' => 'required|email|max:40|ends_with:gmail.com,outlook.fr',
-                'password' => 'required|max:10'
-            ]);
-            $email = $request->email;
-            $password = $request->password;
-            if(isset($email) && isset($password)){
-                if(!empty($email) && !empty($password)){
-                    // Code a exécuté.
-                    return response()->json(['message' => 'true']);
-                } else {
-                    throw new Exception("Email et mot de passe ne peuvent pas être vides.");
-                }
+    
+
+            $credentials = ['email' => $request->email, 'password' => $request->password];
+    
+            if (Auth::attempt($credentials)) {
+                
+                return response()->json(['message' => 'true']);
             } else {
-                throw new Exception("Email et mot de passe doivent être définis.");
+                
+                return response()->json(['message' => 'false']);
             }
+    
+            
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->errors()], 422);
         } catch (Exception $e) {
-            // Gérer l'exception.
-            return response()->json($e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-    }   
+      
+
+    }
+    
 }

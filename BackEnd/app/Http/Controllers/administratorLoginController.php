@@ -11,17 +11,33 @@ class administratorLoginController extends Controller
 {
     public function tcheckLoginAdministrator(Request $request){
         try {
+
+            $validatedData = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ]);
+
+            if ($validatedData)
+             {
+                $credentials = ['email' => $request->email, 'password' => $request->password];
+    
+                if (Auth::attempt($credentials)) {
+                    
+                    return response()->json(['message' => 'true']);
+
+                } else {
+                    
+                    return response()->json(['message' => 'false']);
+                    
+                }
+            }else{
+
+            return response()->json(['message' => 'falsere']);
+            
+            }
     
 
-            $credentials = ['email' => $request->email, 'password' => $request->password];
-    
-            if (Auth::attempt($credentials)) {
-                
-                return response()->json(['message' => 'true']);
-            } else {
-                
-                return response()->json(['message' => 'false']);
-            }
+            
     
             
         } catch (ValidationException $e) {

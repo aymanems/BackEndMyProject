@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('registration', 40)->unique();
             $table->string('codercp')->unique();
-            $table->string('cin', 7)->unique();
-            $table->string('name', 20);
+            $table->string('cin', 20)->unique();
             $table->string('familyname', 20);
             $table->date('dateofbirth');
             $table->string('country', 50);
@@ -26,13 +26,12 @@ return new class extends Migration
             $table->string('level', 20);
             $table->string('cost', 20);
             $table->string('amountpay', 20);
-            $table->string('amountremaining', 20);
+            $table->string('amountremaining', 30);
             $table->date('integrationdate');
             $table->date('enddate');  
             $table->string('phone', 35)->unique();
-            $table->string('email', 50)->unique();
-            $table->string('password', 255);
-            $table->integer('statut');
+            $table->string('statut');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');       
             $table->timestamps();
         });
     }

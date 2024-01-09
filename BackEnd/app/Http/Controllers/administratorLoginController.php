@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -22,8 +23,18 @@ class administratorLoginController extends Controller
                 $credentials = ['email' => $request->email, 'password' => $request->password];
     
                 if (Auth::attempt($credentials)) {
+                    $authenticatedUser = Auth::user();
+
                     
-                    return response()->json(['message' => 'true']);
+                    $email = $authenticatedUser->email;
+
+                     $students = Student::with('user')
+                    ->whereHas('user', function ($query) use ($email) {
+                        $query->where('email', $email);
+                    })
+                    ->get();
+
+                    return response()->json(['message' => 'true','students'=>$students]);
 
                 } else {
                     
@@ -48,5 +59,6 @@ class administratorLoginController extends Controller
       
 
     }
-    
+
+ 
 }

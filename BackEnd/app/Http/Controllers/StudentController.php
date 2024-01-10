@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Student;
+use Illuminate\Support\Facades\Hash;
+
 
 use Illuminate\Http\Request;
 
@@ -39,5 +41,27 @@ class StudentController extends Controller
     $imageUrl = asset('storage/' . $student->picture);
 
     return response()->json(['imageUrl' => $imageUrl]);
+    }
+
+    public function changePassword(Request $request,$id)
+    {
+        $student = Student::find($id);
+        
+        if (isset($request->currentPassword)) {
+            
+            $cryptPass=Hash::check($request->currentPassword, $student->user->password);
+        }
+
+        if ( isset($request->newPassword) && isset($student) && $cryptPass==true ) {
+            $student->user->update([
+                'password' => Hash::make($request->newPassword), 
+            ]);
+
+            return response()->json(['message'=>'Le mot de passe a ete mis a jour avec succes']);
+        }else
+        {
+            return response()->json(['message'=>'Le mot de passe n\'a pas ete mis a jour avec succes.']);
+        }
+        
     }
 }

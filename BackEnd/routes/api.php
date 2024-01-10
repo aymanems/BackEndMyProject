@@ -23,3 +23,4 @@ Route::post( '/tcheckLogin', [administratorLoginController::class,'tcheckLoginAd
 Route::get('student/{email}', [StudentController::class,'index']);
 Route::post('student/profile/image/{id}', [StudentController::class,'updateProfileImage']);
 Route::get('/student/profile/getimage/{id}', [StudentController::class,'getProfileImage']);
+Route::post('student/profile/changePass/{id}', [StudentController::class,'changePassword']);

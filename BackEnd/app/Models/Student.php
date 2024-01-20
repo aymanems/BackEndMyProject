@@ -32,9 +32,14 @@ class Student extends Model
                             'user_id',
                         ];
 
-                        public function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 
 }

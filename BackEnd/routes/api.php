@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\administratorLoginController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\notificationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +25,9 @@ Route::get('student/{email}', [StudentController::class,'index']);
 Route::post('student/profile/image/{id}', [StudentController::class,'updateProfileImage']);
 Route::get('/student/profile/getimage/{id}', [StudentController::class,'getProfileImage']);
 Route::post('student/profile/changePass/{id}', [StudentController::class,'changePassword']);
+
+
+// ########################################## Notification #####################################################3
+Route::get('notifications', [notificationController::class,'index']);
+Route::post('notifications/store', [notificationController::class,'store']);
+Route::put('/notifications/{notification}', [notificationController::class,'markAsRead']);

@@ -20,22 +20,15 @@ class notificationController extends Controller
         $notification->update(['read' => true]);
         return response()->json(['message'=>'updated successfully']);
     }
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        // $notifications=new Notification();
-        // $notification->title=$request->title;
-        // $notification->content=$request->content;
-        // $notification->read=0;
-        // $notification->student_id=Auth::id();
-        // $notification->save();
+        $notification=new Notification();
+        $notification->title=$request->title;
+        $notification->content=$request->content;
+        $notification->read=0;
+        $notification->student_id=$id;
+        $notification->save();
        
-        // return response()->json(['message'=>'Enregistré avec succès']);
-        // if (Auth::check()) {
-        //     $userId = Auth::id();
-        //     return response()->json(['message' => $userId]);
-        // } else {
-        //     return response()->json(['message' => 'Utilisateur non authentifié']);
-        // }
-        
+        return response()->json(['message'=>'Enregistré avec succès']);
     }
 }

@@ -29,5 +29,5 @@ Route::post('student/profile/changePass/{id}', [StudentController::class,'change
 
 // ########################################## Notification #####################################################3
 Route::get('notifications', [notificationController::class,'index']);
-Route::post('notifications/store', [notificationController::class,'store']);
+Route::post('notifications/store/{id}', [notificationController::class,'store']);
 Route::put('/notifications/{notification}', [notificationController::class,'markAsRead']);

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('supervisors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('registration', 40)->unique();
-            $table->string('codercp')->unique();
-            $table->string('cin', 20)->unique();
+            $table->string('registration', 20)->unique();
+            $table->string('code', 255)->unique();
+            $table->string('status', 15);
+            $table->string('cin', 7)->unique();
+            $table->string('name', 20);
             $table->string('familyname', 20);
             $table->date('dateofbirth');
             $table->string('country', 50);
@@ -24,12 +25,11 @@ return new class extends Migration
             $table->string('university', 50);
             $table->string('speciality', 50);
             $table->string('level', 20);
-            $table->date('integrationdate');
-            $table->date('enddate');  
-            $table->string('phone', 35)->unique();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('status', 30)->default('active'); 
+            $table->string('integrationdate', 255);
+            $table->string('phone', 13)->unique();
+            $table->string('email', 50)->unique();
+            $table->string('password', 255);
+            $table->string('status', 30)->default('active');
             $table->timestamps();
         });
     }
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('supervisors');
     }
 };

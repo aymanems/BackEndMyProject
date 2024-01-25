@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('reason');
             $table->text('document');
             $table->integer('absencehours');
-            $table->foreignId('student')->constrained('students')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('student')->unsigned();
+            $table->foreign('student')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

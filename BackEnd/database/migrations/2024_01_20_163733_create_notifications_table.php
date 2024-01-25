@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->boolean('read')->default(false);
-            $table->foreignId('student_id')->constrained('students')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('student')->unsigned();
+            $table->foreign('student')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

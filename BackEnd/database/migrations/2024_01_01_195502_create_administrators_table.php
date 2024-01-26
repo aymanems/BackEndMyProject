@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('country', 50);
             $table->string('picture', 255);
             $table->string('phone', 35)->unique();
-            $table->string('email', 50)->unique();
-            $table->string('password', 255);
             $table->string('status', 30)->default('active');
             $table->timestamps();
         });

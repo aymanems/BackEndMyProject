@@ -36,6 +36,39 @@ class administratorLoginController extends Controller
 
                     return response()->json(['message' => 'true','students'=>$students]);
 
+
+                    /*if($authenticatedUser->role == 'student'){
+                        //return response()->json(['message' => 'true','students'=>$students]);
+                    }elseif($authenticatedUser->role == 'supervisor'){
+                        //
+                    }elseif($authenticatedUser->role == 'administrator'){
+                        //
+                    }else{
+                        //Afficher un message
+                    }*/
+
+                    //-------------------------------- MTD-2 ---------------------------------------------
+
+                    /*switch ($authenticatedUser->role) {
+                        case 'student':
+                            return response()->json(['message' => 'true', 'students' => $students]);
+                            break;
+                    
+                        case 'supervisor':
+                            // Gérer la logique pour le superviseur ici
+                            break;
+                    
+                        case 'administrator':
+                            // Gérer la logique pour l'administrateur ici
+                            break;
+                    
+                        default:
+                            // Afficher un message pour les rôles autres que étudiant, superviseur et administrateur
+                            // Afficher un message
+                        break;
+                    }*/
+                    
+
                 } else {
                     
                     return response()->json(['message' => 'false']);

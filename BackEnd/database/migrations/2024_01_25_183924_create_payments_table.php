@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('cost', 20);
             $table->string('amountpay', 20);
             $table->string('amountremaining', 30);
+            $table->date('datepayment');
             $table->timestamps();
         });
     }
